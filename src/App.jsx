@@ -1,16 +1,260 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <p className="text-white bg-primary p-4 border border-primary rounded-lg">
-      Tailwind
-    </p>
+    <div className="font-sans text-paragraph flex flex-col">
+      {/* Navbar */}
+      <header className="flex items-center justify-between py-9 px-8">
+        <h1 className="text-3xl  text-shadow-lg font-semibold text-title">
+          {" "}
+          <span className="text-primary">Awww</span>some.
+        </h1>
+        <nav className="hidden md:flex items-center gap-8 text-textSecondary font-medium">
+          <a href="#" className="text-primary text-shadow-lg font-semibold">
+            Home
+          </a>
+          <a className="text-shadow-lg" href="#">
+            About us
+          </a>
+          <a className="text-shadow-lg" href="#">
+            Services
+          </a>
+          <a className="text-shadow-lg" href="#">
+            News
+          </a>
+          <a
+            href="#"
+            className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-sm font-semibold"
+          >
+            Contact
+          </a>
+        </nav>
+      </header>
+
+      {/* Hero */}
+      <section className="grid md:grid-cols-5 items-start gap-32 px-20 py-9 ">
+        <div className="col-span-2">
+          <h2 className="text-h1 mb-4 text-title leading-snug text-shadow-lg">
+            We do the work you stay focused on your customers.
+          </h2>
+          <p className="text-textSecondary mb-6 leading-8">
+            Awwwsome. is a digital agency passionate about storytelling, visual
+            design, and technology. We collaborate with companies small to large
+            around the world to help them engage their audiences and build brand
+            awareness.
+          </p>
+          <p className="text-textSecondary my-6 leading-8">
+            Our team can create amazing web experiences, beginning with deep
+            market research, practical strategies, and professional execution.
+          </p>
+          <div className="flex gap-4">
+            <a
+              href="#"
+              className="bg-primary text-white px-8 py-3 rounded-sm  hover:bg-primaryHover font-semibold"
+            >
+              Explore Projects
+            </a>
+            <a
+              href="#"
+              className="bg-primaryLight text-primary px-8 py-3 rounded-sm font-semibold"
+            >
+              About Us
+            </a>
+          </div>
+        </div>
+        <div className="flex justify-center col-span-3">
+          <img
+            src="/src/assets/hero-image.svg"
+            alt="Illustration"
+            className="w-[550px] h-auto"
+          />
+        </div>
+      </section>
+
+      {/* What We Do */}
+      <section className="px-20 py-9 bg-white text-center">
+        <h3 className="text-h2 mb-12 text-title">What we do</h3>
+        <div className="grid md:grid-cols-4 gap-8">
+          <div className="flex items-center flex-col gap-6">
+            <div className="p-6 rounded-xl card bg-accentOrange">
+              <img
+                src="/src/assets/icons/app.svg"
+                className="w-[50px] h-auto "
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h4 className="font-semibold text-lg  text-title">
+                Web Application
+              </h4>
+              <p className="text-textSecondary text-sm">
+                Platform independent business solutions for maximum availability
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center flex-col gap-6">
+            <div className="p-6 rounded-xl card bg-accentBlue">
+              <img
+                src="/src/assets/icons/seo.svg"
+                className="w-[50px] h-auto "
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h4 className="font-semibold text-lg  text-title">SEO </h4>
+              <p className="text-textSecondary text-sm">
+                Let the world find you on top of others
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center flex-col gap-6">
+            <div className="p-6 rounded-xl card bg-accentYellow">
+              <img
+                src="/src/assets/icons/game.svg"
+                className="w-[50px] h-auto "
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h4 className="font-semibold text-lg  text-title">
+                Game Development{" "}
+              </h4>
+              <p className="text-textSecondary text-sm">
+                Interactive games with perfect graphics{" "}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center flex-col gap-6">
+            <div className="p-6 rounded-xl card bg-accentPurple">
+              <img
+                src="/src/assets/icons/cloud.svg"
+                className="w-[50px] h-auto "
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h4 className="font-semibold text-lg  text-title">
+                Iot/ AI/ RObotic{" "}
+              </h4>
+              <p className="text-textSecondary text-sm">
+                Advanced autonomous technologies to make life simple{" "}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog */}
+      <section className="px-20 py-16 bg-gray-50">
+        <div className="flex flex-col gap-10">
+          <div>
+            <h3 className="text-h2 mb-4 text-center text-title">Latest News</h3>
+            <p className="text-textSecondary mb-6 text-center">
+              Stay updated with our latest news and insights.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                date: "November 10, 2021",
+                title: "LaserNetUs Website Launch",
+                desc: "LaserNetUs has a new brand identity and website designed by eDesign Interactive...",
+                image: "/src/assets/blog/tshirt.png",
+              },
+              {
+                date: "February 21, 2021",
+                title:
+                  "How we helped an Orthopedic Practice Increase their traffic",
+                desc: "We are honored and excited to be working with The Orthopedic Institute of New Jersey...",
+                image: "/src/assets/blog/website.png",
+              },
+              {
+                date: "July 03, 2021",
+                title: "The Increasing importance of Web Accessibilitys",
+                desc: "Is your website accessible to visitors with impairments?",
+                image: "/src/assets/blog/accessibility.png",
+              },
+            ].map((post, idx) => (
+              <div key={idx} className=" rounded-md  overflow-hidden">
+                <img
+                  src={post.image}
+                  alt="images"
+                  className={
+                    idx === 2
+                      ? "w-full h-[300px] object-cover object-center"
+                      : "w-full h-[300px] object-cover object-left-top"
+                  }
+                />
+                <div className="py-4">
+                  <p className="text-sm text-textSecondary mb-2 font-medium">
+                    {post.date}
+                  </p>
+                  <h4 className="font-semibold mb-2 text-title text-md">
+                    {post.title}
+                  </h4>
+                  <p className="text-textSecondary text-sm">{post.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="text-center mt-16">
+          <a
+            href="#"
+            className="bg-primary text-white px-8 py-3  rounded-sm font-semibold  hover:bg-primaryHover"
+          >
+            View All
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-footerBg text-footerText px-20 py-20">
+        <div className="grid md:grid-cols-6 justify-between w-full">
+          <div className="col-span-3">
+            <h4 className="text-white font-bold mb-4 text-h1">Awwwsome.</h4>
+            <p className="text-sm w-[400px]">
+              Our team can create amazing web experiences, beginning with deep
+              market research, practical strategies, and professional execution.
+            </p>
+          </div>
+          <div className="col-span-3 flex gap-36  justify-start">
+            <div className="">
+              <h5 className="text-white font-semibold mb-4">About Us</h5>
+              <ul className="space-y-2 text-sm">
+                <li>Works</li>
+                <li>Strategy</li>
+                <li>Releases</li>
+                <li>Press</li>
+                <li>Mission</li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-semibold mb-4">Customers</h5>
+              <ul className="space-y-2 text-sm">
+                <li>Trending</li>
+                <li>Popular</li>
+                <li>Customers</li>
+                <li>Features</li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-semibold mb-4">Support</h5>
+              <ul className="space-y-2 text-sm">
+                <li>Developers</li>
+                <li>Support</li>
+                <li>Customer Service</li>
+                <li>Guide</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div className="text-center text-sm  bg-lastFooter py-4">
+        © 2022 Awwwsome Designers
+      </div>
+    </div>
   );
-}
+};
 
 export default App;
