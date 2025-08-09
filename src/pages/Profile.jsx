@@ -8,6 +8,7 @@ const Profile = () => {
   );
   const [isEditing, setIsEditing] = useState(false);
   const [editedUsername, setEditedUsername] = useState(profileUsername);
+  const role = localStorage.getItem("role");
 
   const saveUsername = () => {
     const trimmed = editedUsername.trim();
@@ -47,14 +48,29 @@ const Profile = () => {
                 <input
                   value={editedUsername}
                   onChange={(e) => setEditedUsername(e.target.value)}
-                  className="border p-2 rounded w-full mb-2"
+                  className={`border p-2 rounded w-full mb-2 ${
+                    role !== "admin"
+                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : ""
+                  }`}
+                  disabled={role !== "admin"}
                 />
                 <button
                   onClick={saveUsername}
-                  className="bg-primary text-white px-4 py-2 rounded w-full"
+                  className={`px-4 py-2 rounded w-full ${
+                    role !== "admin"
+                      ? "bg-gray-300 text-gray-400 cursor-not-allowed"
+                      : "bg-primary text-white"
+                  }`}
+                  disabled={role !== "admin"}
                 >
                   Save
                 </button>
+                {role !== "admin" && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    This field is read-only for users.
+                  </p>
+                )}
               </div>
             ) : (
               <div className="w-full flex flex-col items-center">

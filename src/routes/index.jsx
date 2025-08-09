@@ -5,6 +5,7 @@ import Charts from "../pages/Charts";
 import Profile from "../pages/Profile";
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "../components/ProtectedRoute";
+import RoleBasedProtectedRoute from "../components/RoleBasedProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,9 @@ export const router = createBrowserRouter([
     path: "/table",
     element: (
       <ProtectedRoute>
-        <Table />
+        <RoleBasedProtectedRoute allowedRoles={["admin"]}>
+          <Table />
+        </RoleBasedProtectedRoute>
       </ProtectedRoute>
     ),
   },
@@ -31,7 +34,9 @@ export const router = createBrowserRouter([
     path: "/charts",
     element: (
       <ProtectedRoute>
-        <Charts />
+        <RoleBasedProtectedRoute allowedRoles={["admin"]}>
+          <Charts />
+        </RoleBasedProtectedRoute>
       </ProtectedRoute>
     ),
   },

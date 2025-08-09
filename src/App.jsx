@@ -21,6 +21,7 @@ const App = () => {
     }
   }, [location]);
 
+  const [loginError, setLoginError] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
     // Dummy credentials
@@ -29,9 +30,10 @@ const App = () => {
       localStorage.setItem("role", "admin");
       setLoggedIn(true);
       setShowLogin(false);
+      setLoginError("");
       window.location.href = "/dashboard";
     } else {
-      alert("Invalid email or password!");
+      setLoginError("Invalid email or password!");
     }
   };
 
@@ -99,9 +101,16 @@ const App = () => {
       {/* Hero */}
       {/* Login Modal */}
       {showLogin && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-96 relative">
             <h2 className="text-xl font-semibold mb-4">Login</h2>
+            {loginError && (
+              <div className="mb-4 flex items-center gap-2 bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded">
+                <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9zm-9 4h.01"></path></svg>
+                <span>{loginError}</span>
+                <button onClick={() => setLoginError("")} className="ml-auto text-red-500 hover:text-red-700">&times;</button>
+              </div>
+            )}
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="block mb-1">Email</label>
