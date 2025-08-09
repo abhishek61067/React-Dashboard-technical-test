@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from "react";
+import heroImage from "./assets/hero-image.svg";
+import appIcon from "./assets/icons/app.svg";
+import seoIcon from "./assets/icons/seo.svg";
+import gameIcon from "./assets/icons/game.svg";
+import cloudIcon from "./assets/icons/cloud.svg";
+import tshirtImg from "./assets/blog/tshirt.png";
+import websiteImg from "./assets/blog/website.png";
+import accessibilityImg from "./assets/blog/accessibility.png";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 
@@ -302,7 +310,7 @@ const App = () => {
           </div>
           <div className="flex justify-center col-span-1 md:col-span-3 mt-8 md:mt-0">
             <img
-              src="/src/assets/hero-image.svg"
+              src={heroImage}
               alt="Illustration"
               className="w-full max-w-xs sm:max-w-md md:w-[550px] h-auto"
             />
@@ -320,8 +328,9 @@ const App = () => {
             <div className="flex items-center flex-col gap-6">
               <div className="p-6 rounded-xl card bg-accentOrange">
                 <img
-                  src="/src/assets/icons/app.svg"
+                  src={appIcon}
                   className="w-[50px] h-auto "
+                  alt="App Icon"
                 />
               </div>
 
@@ -338,8 +347,9 @@ const App = () => {
             <div className="flex items-center flex-col gap-6">
               <div className="p-6 rounded-xl card bg-accentBlue">
                 <img
-                  src="/src/assets/icons/seo.svg"
+                  src={seoIcon}
                   className="w-[50px] h-auto "
+                  alt="SEO Icon"
                 />
               </div>
 
@@ -353,8 +363,9 @@ const App = () => {
             <div className="flex items-center flex-col gap-6">
               <div className="p-6 rounded-xl card bg-accentYellow">
                 <img
-                  src="/src/assets/icons/game.svg"
+                  src={gameIcon}
                   className="w-[50px] h-auto "
+                  alt="Game Icon"
                 />
               </div>
 
@@ -370,8 +381,9 @@ const App = () => {
             <div className="flex items-center flex-col gap-6">
               <div className="p-6 rounded-xl card bg-accentPurple">
                 <img
-                  src="/src/assets/icons/cloud.svg"
+                  src={cloudIcon}
                   className="w-[50px] h-auto "
+                  alt="Cloud Icon"
                 />
               </div>
 
@@ -407,20 +419,20 @@ const App = () => {
                   date: "November 10, 2021",
                   title: "LaserNetUs Website Launch",
                   desc: "LaserNetUs has a new brand identity and website designed by eDesign Interactive. The homepage is dynamic and eye-catching. The website aims to highlight the innovative nature of high-intensity laser technology",
-                  image: "/src/assets/blog/tshirt.png",
+                  image: tshirtImg,
                 },
                 {
                   date: "February 21, 2021",
                   title:
                     "How we helped an Orthopedic Practice Increase their traffic",
                   desc: "We are honored and excited to be working with The Orthopedic Institute of New Jersey, the largest practice in northwest New Jersey.",
-                  image: "/src/assets/blog/website.png",
+                  image: websiteImg,
                 },
                 {
                   date: "July 03, 2021",
                   title: "The Increasing importance of Web Accessibilitys",
                   desc: "Is your website accessible to visitors with impairments?",
-                  image: "/src/assets/blog/accessibility.png",
+                  image: accessibilityImg,
                 },
               ].map((post, idx) => (
                 <div key={idx} className="rounded-md overflow-hidden ">
