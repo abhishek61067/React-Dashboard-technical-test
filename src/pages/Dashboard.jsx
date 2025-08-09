@@ -26,7 +26,7 @@ import {
   FiMenu,
 } from "react-icons/fi";
 import Sidebar from "../components/Sidebar";
-import { useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 
 // Dummy chart data
 const hoursData = [
@@ -179,7 +179,7 @@ const Dashboard = () => {
         <header className="flex items-center bg-white shadow p-4 w-full">
           <button
             onClick={toggleSidebar}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4 md:hidden"
+            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4"
             aria-label="Toggle Sidebar"
           >
             <FiMenu size={24} />
@@ -195,12 +195,17 @@ const Dashboard = () => {
             <p className="text-gray-500 text-sm sm:text-base">
               Thursday, 20th February
             </p>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center">
               Hi,{" "}
               <span className="text-primary">
-                {localStorage.getItem("username") || "Unknown User"}
+                {localStorage.getItem("username") || "there"}
               </span>
-              ,
+              <span className="text-paragraph text-sm font-normal px-5">
+                You can edit your profile
+                <span className="text-primary cursor-pointer ps-1">
+                  <Link to="/profile">here</Link>
+                </span>
+              </span>
             </h1>
           </div>
 

@@ -72,7 +72,7 @@ const Charts = () => {
         <header className="flex items-center bg-white shadow p-4 w-full">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4 md:hidden"
+            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4"
             aria-label="Toggle Sidebar"
           >
             <FiMenu size={24} />
