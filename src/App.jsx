@@ -108,21 +108,21 @@ const App = () => {
             Home
           </a>
           <a
-            className="text-shadow-lg"
+            className="text-shadow-lg font-normal text-paragraph"
             href="#hero-section"
             onClick={(e) => handleNavClick(e, "hero-section")}
           >
             About us
           </a>
           <a
-            className="text-shadow-lg"
+            className="text-shadow-lg font-normal text-paragraph"
             href="#what-we-do-section"
             onClick={(e) => handleNavClick(e, "what-we-do-section")}
           >
             Services
           </a>
           <a
-            className="text-shadow-lg"
+            className="text-shadow-lg font-normal text-paragraph"
             href="#latest-news-section"
             onClick={(e) => handleNavClick(e, "latest-news-section")}
           >
