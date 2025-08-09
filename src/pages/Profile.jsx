@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { FiMenu } from "react-icons/fi";
+import Avatar from "/src/assets/avatar.png";
 
 const Profile = () => {
   const [profileUsername, setProfileUsername] = useState(
@@ -39,7 +40,7 @@ const Profile = () => {
         <main className="flex-1 flex flex-col items-center justify-center w-full p-2 sm:p-4 md:p-6">
           <div className="bg-white rounded-2xl shadow-lg border border-primaryLight p-4 sm:p-8 flex flex-col items-center w-full max-w-xs sm:max-w-sm mt-8">
             <img
-              src="/src/assets/avatar.png"
+              src={Avatar}
               alt="Profile"
               className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4 border-4 border-primaryLight"
             />

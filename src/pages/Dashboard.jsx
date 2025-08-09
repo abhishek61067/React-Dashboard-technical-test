@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import avatarImg from "../assets/avatar.png";
 import axios from "axios";
 import {
   BarChart,
@@ -367,7 +368,7 @@ const Dashboard = () => {
               <div className="bg-white rounded-lg p-4 sm:p-6 shadow-lg w-full max-w-xs sm:max-w-md">
                 <div className="flex flex-col items-center">
                   <img
-                    src="/src/assets/avatar.png"
+                    src={avatarImg}
                     alt="Profile"
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4"
                   />
@@ -393,7 +394,7 @@ const Dashboard = () => {
               <div className="bg-white rounded-lg p-4 sm:p-6 shadow-lg w-full max-w-xs sm:max-w-md">
                 <div className="flex flex-col items-center">
                   <img
-                    src="/src/assets/avatar.png"
+                    src={avatarImg}
                     alt="Profile"
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4"
                   />
