@@ -4,6 +4,7 @@ import Table from "../pages/Table";
 import Charts from "../pages/Charts";
 import Profile from "../pages/Profile";
 import { createBrowserRouter } from "react-router";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -12,18 +13,34 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/table",
-    element: <Table />,
+    element: (
+      <ProtectedRoute>
+        <Table />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/charts",
-    element: <Charts />,
+    element: (
+      <ProtectedRoute>
+        <Charts />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
 ]);

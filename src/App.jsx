@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // Check login status on page load
+  // Check login status on page load and handle redirect state
   useEffect(() => {
     const status = localStorage.getItem("loggedIn");
     if (status === "true") {
       setLoggedIn(true);
     }
-  }, []);
+    // If redirected with state.loggedIn === false, open login modal
+    if (location && location.state && location.state.loggedIn === false) {
+      setShowLogin(true);
+    }
+  }, [location]);
 
   const handleLogin = (e) => {
     e.preventDefault();
