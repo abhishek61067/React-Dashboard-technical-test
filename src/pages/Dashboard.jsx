@@ -24,10 +24,8 @@ import {
   FiEye,
   FiTrash2,
   FiMenu,
-  FiHome,
-  FiGrid,
-  FiUser,
 } from "react-icons/fi";
+import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router";
 
 // Dummy chart data
@@ -46,82 +44,6 @@ const taskData = [
   { name: "Completed", value: 7, color: "#22C55E" },
   { name: "Yet to Start", value: 3, color: "#FACC15" },
 ];
-
-// Sidebar component
-// Sidebar component
-const Sidebar = ({ isOpen, toggleSidebar, openProfileModal }) => {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("role");
-    localStorage.removeItem("loggedIn");
-    // Reload page or redirect to login, or do something else:
-    navigate("/");
-  };
-  return (
-    <div
-      className={`fixed top-0 left-0 h-full bg-white shadow-lg z-50 transform transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } w-64`}
-    >
-      <div className="flex items-center justify-between px-4 py-3 border-b">
-        <h2 className="text-xl font-bold">Menu</h2>
-        <button
-          onClick={toggleSidebar}
-          className="text-gray-600 hover:text-gray-900 focus:outline-none"
-        >
-          ✕
-        </button>
-      </div>
-      <nav className="flex flex-col mt-4">
-        <button
-          className="flex items-center gap-2 px-6 py-3 hover:bg-gray-100 text-gray-700 text-left w-full"
-          onClick={() => {
-            navigate("/dashboard");
-            toggleSidebar();
-          }}
-        >
-          <FiGrid /> Dashboard
-        </button>
-        <button
-          className="flex items-center gap-2 px-6 py-3 hover:bg-gray-100 text-gray-700 text-left w-full"
-          onClick={() => {
-            navigate("/table");
-            toggleSidebar();
-          }}
-        >
-          <FiUser /> Table
-        </button>
-        <button
-          className="flex items-center gap-2 px-6 py-3 hover:bg-gray-100 text-gray-700 text-left w-full"
-          onClick={() => {
-            navigate("/charts");
-            toggleSidebar();
-          }}
-        >
-          <FiActivity /> Charts
-        </button>
-        <button
-          className="flex items-center gap-2 px-6 py-3 hover:bg-gray-100 text-gray-700 text-left w-full"
-          onClick={() => {
-            navigate("/profile");
-            toggleSidebar();
-          }}
-        >
-          <FiUser /> Profile
-        </button>
-        <button
-          className="flex items-center gap-2 px-6 py-3 hover:bg-gray-100 text-red-600 text-left w-full mt-auto"
-          onClick={() => {
-            handleLogout();
-            toggleSidebar();
-          }}
-        >
-          Logout
-        </button>
-      </nav>
-    </div>
-  );
-};
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);

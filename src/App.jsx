@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const location = useLocation();
 
   const [email, setEmail] = useState("");
@@ -21,7 +23,6 @@ const App = () => {
     }
   }, [location]);
 
-  const [loginError, setLoginError] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
     // Dummy credentials
@@ -30,10 +31,9 @@ const App = () => {
       localStorage.setItem("role", "admin");
       setLoggedIn(true);
       setShowLogin(false);
-      setLoginError("");
       window.location.href = "/dashboard";
     } else {
-      setLoginError("Invalid email or password!");
+      alert("Invalid email or password!");
     }
   };
 
@@ -53,14 +53,24 @@ const App = () => {
     setLoggedIn(false);
   };
   return (
-    <div className="font-sans text-paragraph flex flex-col">
+    <div className="font-sans text-paragraph flex flex-col min-h-screen">
       {/* Navbar */}
-      <header className="flex items-center justify-between py-9 px-8">
-        <h1 className="text-3xl  text-shadow-lg font-semibold text-title">
-          {" "}
-          <span className="text-primary">Awww</span>some.
-        </h1>
-        <nav className="hidden md:flex items-center gap-8 text-textSecondary font-medium">
+      <header className="relative flex flex-col md:flex-row items-center justify-between py-6 px-4 md:py-9 md:px-8 w-full">
+        <div className="flex w-full md:w-auto items-center justify-between">
+          <h1 className="text-2xl md:text-3xl text-shadow-lg font-semibold text-title">
+            <span className="text-primary">Awww</span>some.
+          </h1>
+          {/* Hamburger icon for mobile */}
+          <button
+            className="md:hidden text-2xl text-primary focus:outline-none"
+            aria-label="Open navigation menu"
+            onClick={() => setMobileNavOpen((prev) => !prev)}
+          >
+            {mobileNavOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8 text-textSecondary font-medium mt-4 md:mt-0">
           <a href="#" className="text-primary text-shadow-lg font-semibold">
             Home
           </a>
@@ -96,21 +106,75 @@ const App = () => {
             </button>
           )}
         </nav>
+        {/* Mobile nav dropdown */}
+        {mobileNavOpen && (
+          <nav className="absolute top-full left-0 w-full bg-white shadow-lg flex flex-col items-center gap-4 py-6 z-40 md:hidden animate-fade-in">
+            <a
+              href="#"
+              className="text-primary text-shadow-lg font-semibold"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              Home
+            </a>
+            <a
+              className="text-shadow-lg"
+              href="#"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              About us
+            </a>
+            <a
+              className="text-shadow-lg"
+              href="#"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              Services
+            </a>
+            <a
+              className="text-shadow-lg"
+              href="#"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              News
+            </a>
+            <a
+              href="#"
+              className="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-sm font-semibold"
+              onClick={() => setMobileNavOpen(false)}
+            >
+              Contact
+            </a>
+            {/* Login / Logout Button */}
+            {!loggedIn ? (
+              <button
+                onClick={() => {
+                  setShowLogin(true);
+                  setMobileNavOpen(false);
+                }}
+                className="bg-primaryLight text-primary px-6 py-2 rounded-sm font-semibold"
+              >
+                Login
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMobileNavOpen(false);
+                }}
+                className="border border-primary text-title px-6 py-2 rounded-sm font-semibold"
+              >
+                Logout
+              </button>
+            )}
+          </nav>
+        )}
       </header>
 
-      {/* Hero */}
       {/* Login Modal */}
       {showLogin && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-96 relative">
-            <h2 className="text-xl font-semibold mb-4">Login</h2>
-            {loginError && (
-              <div className="mb-4 flex items-center gap-2 bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded">
-                <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9zm-9 4h.01"></path></svg>
-                <span>{loginError}</span>
-                <button onClick={() => setLoginError("")} className="ml-auto text-red-500 hover:text-red-700">&times;</button>
-              </div>
-            )}
+          <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-[95vw] max-w-xs sm:max-w-md">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">Login</h2>
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="block mb-1">Email</label>
@@ -133,7 +197,7 @@ const App = () => {
                 />
               </div>
               <div className="flex flex-col gap-2 mt-4">
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <button
                     type="submit"
                     className="bg-primary text-white px-4 py-2 rounded"
@@ -161,9 +225,10 @@ const App = () => {
         </div>
       )}
 
-      <section className="grid md:grid-cols-5 items-start gap-32 px-20 py-9 ">
-        <div className="col-span-2">
-          <h2 className="text-h1 mb-4 text-title leading-snug text-shadow-lg">
+      {/* Hero Section */}
+      <section className="grid grid-cols-1 md:grid-cols-5 items-start gap-8 md:gap-32 px-4 sm:px-8 md:px-20 py-6 md:py-9 w-full">
+        <div className="col-span-1 md:col-span-2">
+          <h2 className="text-2xl sm:text-3xl md:text-h1 mb-4 text-title leading-snug text-shadow-lg">
             We do the work you stay focused on your customers.
           </h2>
           <p className="text-textSecondary mb-6 leading-8">
@@ -176,34 +241,36 @@ const App = () => {
             Our team can create amazing web experiences, beginning with deep
             market research, practical strategies, and professional execution.
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="#"
-              className="bg-primary text-white px-8 py-3 rounded-sm  hover:bg-primaryHover font-semibold"
+              className="bg-primary text-white px-6 sm:px-8 py-3 rounded-sm  hover:bg-primaryHover font-semibold text-center"
             >
               Explore Projects
             </a>
             <a
               href="#"
-              className="bg-primaryLight text-primary px-8 py-3 rounded-sm font-semibold"
+              className="bg-primaryLight text-primary px-6 sm:px-8 py-3 rounded-sm font-semibold text-center"
             >
               About Us
             </a>
           </div>
         </div>
-        <div className="flex justify-center col-span-3">
+        <div className="flex justify-center col-span-1 md:col-span-3 mt-8 md:mt-0">
           <img
             src="/src/assets/hero-image.svg"
             alt="Illustration"
-            className="w-[550px] h-auto"
+            className="w-full max-w-xs sm:max-w-md md:w-[550px] h-auto"
           />
         </div>
       </section>
 
       {/* What We Do */}
-      <section className="px-20 py-9 bg-white text-center">
-        <h3 className="text-h2 mb-12 text-title">What we do</h3>
-        <div className="grid md:grid-cols-4 gap-8">
+      <section className="px-4 sm:px-8 md:px-20 py-6 md:py-9 bg-white text-center w-full">
+        <h3 className="text-xl sm:text-2xl md:text-h2 mb-8 md:mb-12 text-title">
+          What we do
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           <div className="flex items-center flex-col gap-6">
             <div className="p-6 rounded-xl card bg-accentOrange">
               <img
@@ -246,10 +313,10 @@ const App = () => {
 
             <div className="flex flex-col gap-2">
               <h4 className="font-semibold text-lg  text-title">
-                Game Development{" "}
+                Game Development
               </h4>
               <p className="text-textSecondary text-sm">
-                Interactive games with perfect graphics{" "}
+                Interactive games with perfect graphics
               </p>
             </div>
           </div>
@@ -263,10 +330,10 @@ const App = () => {
 
             <div className="flex flex-col gap-2">
               <h4 className="font-semibold text-lg  text-title">
-                Iot/ AI/ RObotic{" "}
+                Iot/ AI/ Robotic
               </h4>
               <p className="text-textSecondary text-sm">
-                Advanced autonomous technologies to make life simple{" "}
+                Advanced autonomous technologies to make life simple
               </p>
             </div>
           </div>
@@ -274,16 +341,18 @@ const App = () => {
       </section>
 
       {/* Blog */}
-      <section className="px-20 py-16 bg-gray-50">
-        <div className="flex flex-col gap-10">
+      <section className="px-4 sm:px-8 md:px-20 py-10 md:py-16 bg-gray-50 w-full">
+        <div className="flex flex-col gap-8 md:gap-10">
           <div>
-            <h3 className="text-h2 mb-4 text-center text-title">Latest News</h3>
+            <h3 className="text-xl sm:text-2xl md:text-h2 mb-4 text-center text-title">
+              Latest News
+            </h3>
             <p className="text-textSecondary mb-6 text-center">
               Insights, thoughts, industry trends, marketing tips, eDesign news,
-              nerdy stuff, it's all here.{" "}
+              nerdy stuff, it's all here.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 date: "November 10, 2021",
@@ -305,15 +374,11 @@ const App = () => {
                 image: "/src/assets/blog/accessibility.png",
               },
             ].map((post, idx) => (
-              <div key={idx} className=" rounded-md  overflow-hidden">
+              <div key={idx} className="rounded-md overflow-hidden ">
                 <img
                   src={post.image}
                   alt="images"
-                  className={
-                    idx === 2
-                      ? "w-full h-[300px] object-cover object-center"
-                      : "w-full h-[300px] object-cover object-left-top"
-                  }
+                  className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover object-center"
                 />
                 <div className="py-4">
                   <p className="text-sm text-textSecondary mb-2 font-medium">
@@ -328,10 +393,10 @@ const App = () => {
             ))}
           </div>
         </div>
-        <div className="text-center mt-16">
+        <div className="text-center mt-10 md:mt-16">
           <a
             href="#"
-            className="bg-primary text-white px-8 py-3  rounded-sm font-semibold  hover:bg-primaryHover"
+            className="bg-primary text-white px-6 sm:px-8 py-3  rounded-sm font-semibold  hover:bg-primaryHover"
           >
             View All
           </a>
@@ -339,17 +404,20 @@ const App = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-footerBg text-footerText px-20 py-20">
-        <div className="grid md:grid-cols-6 justify-between w-full">
-          <div className="col-span-3">
-            <h4 className="text-white font-bold mb-4 text-h1">Awwwsome.</h4>
-            <p className="text-sm w-[400px]">
+      <footer className="bg-footerBg text-footerText px-4 sm:px-8 md:px-20 py-10 md:py-20 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 md:gap-0 justify-between w-full">
+          <div className="col-span-1 md:col-span-3 mb-8 md:mb-0">
+            <h4 className="text-white font-bold mb-4 text-xl md:text-h1">
+              Awwwsome.
+            </h4>
+            <p className="text-sm max-w-xs md:w-[400px]">
               Our team can create amazing web experiences, beginning with deep
               market research, practical strategies, and professional execution.
             </p>
           </div>
-          <div className="col-span-3 flex gap-36  justify-start">
-            <div className="">
+          {/* Responsive links: 2 columns per row on mobile/tablet, 3 columns on desktop */}
+          <div className="col-span-1 md:col-span-3 grid grid-cols-2 md:flex md:flex-row gap-8 md:gap-36 justify-start">
+            <div>
               <h5 className="text-white font-semibold mb-4">About Us</h5>
               <ul className="space-y-2 text-sm">
                 <li>Works</li>
@@ -380,7 +448,7 @@ const App = () => {
           </div>
         </div>
       </footer>
-      <div className="text-center text-sm  bg-lastFooter py-4">
+      <div className="text-center text-sm  bg-lastFooter py-4 w-full">
         © 2022 Awwwsome Designers
       </div>
     </div>
