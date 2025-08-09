@@ -74,25 +74,25 @@ const Table = () => {
   });
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
       <Sidebar
         isOpen={sidebarOpen}
         toggleSidebar={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-h-screen">
-        <header className="flex items-center bg-white shadow p-4">
+      <div className="flex-1 flex flex-col min-h-screen w-full">
+        <header className="flex items-center bg-white shadow p-4 w-full">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4"
+            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4 md:hidden"
             aria-label="Toggle Sidebar"
           >
             <FiMenu size={24} />
           </button>
-          <h2 className="text-2xl font-bold">Users Table</h2>
+          <h2 className="text-lg sm:text-2xl font-bold">Users Table</h2>
         </header>
-        <main className="flex-1 p-6 overflow-auto">
-          <div className="bg-white rounded-xl p-4 shadow">
-            <table className="min-w-full">
+        <main className="flex-1 p-2 sm:p-4 md:p-6 overflow-auto w-full">
+          <div className="bg-white rounded-xl p-2 sm:p-4 shadow overflow-x-auto">
+            <table className="min-w-full text-sm">
               <thead className="bg-gray-100">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
@@ -128,15 +128,15 @@ const Table = () => {
             </table>
 
             {/* Pagination Controls */}
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
               <button
-                className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
+                className="px-3 py-2 bg-primary text-white rounded disabled:opacity-50 w-full sm:w-auto"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
                 Previous
               </button>
-              <span>
+              <span className="text-sm">
                 Page{" "}
                 <strong>
                   {table.getState().pagination.pageIndex + 1} of{" "}
@@ -144,7 +144,7 @@ const Table = () => {
                 </strong>
               </span>
               <button
-                className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
+                className="px-3 py-2 bg-primary text-white rounded disabled:opacity-50 w-full sm:w-auto"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
@@ -155,13 +155,13 @@ const Table = () => {
 
           {/* User View Modal */}
           {isModalOpen && selectedUser && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg p-6 shadow-lg w-96">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2">
+              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-lg w-full max-w-xs sm:max-w-md">
                 <div className="flex flex-col items-center">
                   <img
                     src="/src/assets/avatar.png"
                     alt="Profile"
-                    className="w-24 h-24 rounded-full mb-4"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4"
                   />
                   <h2 className="text-xl font-bold">{selectedUser.name}</h2>
                   <p className="text-gray-500">{selectedUser.email}</p>

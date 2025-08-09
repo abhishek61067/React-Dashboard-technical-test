@@ -165,7 +165,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -174,24 +174,28 @@ const Dashboard = () => {
       />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen w-full">
         {/* Top navbar */}
-        <header className="flex items-center bg-white shadow p-4">
+        <header className="flex items-center bg-white shadow p-4 w-full">
           <button
             onClick={toggleSidebar}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4"
+            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4 md:hidden"
             aria-label="Toggle Sidebar"
           >
             <FiMenu size={24} />
           </button>
-          <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
+          <h1 className="text-lg sm:text-xl font-semibold text-gray-800">
+            Dashboard
+          </h1>
         </header>
 
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-2 sm:p-4 md:p-6 overflow-auto w-full">
           {/* Greeting */}
-          <div className="mb-6">
-            <p className="text-gray-500">Thursday, 20th February</p>
-            <h1 className="text-2xl font-bold text-gray-800">
+          <div className="mb-4 sm:mb-6">
+            <p className="text-gray-500 text-sm sm:text-base">
+              Thursday, 20th February
+            </p>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
               Hi,{" "}
               <span className="text-primary">
                 {localStorage.getItem("username") || "Unknown User"}
@@ -201,7 +205,7 @@ const Dashboard = () => {
           </div>
 
           {/* Summary Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 sm:mb-8">
             <div className="bg-white rounded-xl p-4 shadow flex items-center gap-4">
               <div className="p-3 bg-primaryLight rounded-lg">
                 <FiClock className="text-primary text-2xl" />
@@ -232,9 +236,9 @@ const Dashboard = () => {
           </div>
 
           {/* Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 sm:mb-8">
             {/* Bar Chart */}
-            <div className="bg-white rounded-xl p-4 shadow col-span-1 lg:col-span-2">
+            <div className="bg-white rounded-xl p-4 shadow col-span-1 md:col-span-2 lg:col-span-2">
               <h3 className="font-semibold mb-4">Hours Spent</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={hoursData}>
@@ -247,7 +251,7 @@ const Dashboard = () => {
             </div>
 
             {/* Pie Chart with rounded corners and custom tooltip */}
-            <div className="bg-white rounded-xl p-4 shadow">
+            <div className="bg-white rounded-xl p-4 shadow mt-4 md:mt-0">
               <h3 className="font-semibold mb-4">Task Status</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
@@ -289,9 +293,9 @@ const Dashboard = () => {
           </div>
 
           {/* Table */}
-          <div className="bg-white rounded-xl p-4 shadow">
+          <div className="bg-white rounded-xl p-2 sm:p-4 shadow overflow-x-auto">
             <h3 className="font-semibold mb-4">Users</h3>
-            <table className="min-w-full">
+            <table className="min-w-full text-sm">
               <thead className="bg-gray-100">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
@@ -327,15 +331,15 @@ const Dashboard = () => {
             </table>
 
             {/* Pagination Controls */}
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
               <button
-                className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
+                className="px-3 py-2 bg-primary text-white rounded disabled:opacity-50 w-full sm:w-auto"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
                 Previous
               </button>
-              <span>
+              <span className="text-sm">
                 Page{" "}
                 <strong>
                   {table.getState().pagination.pageIndex + 1} of{" "}
@@ -343,7 +347,7 @@ const Dashboard = () => {
                 </strong>
               </span>
               <button
-                className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
+                className="px-3 py-2 bg-primary text-white rounded disabled:opacity-50 w-full sm:w-auto"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
@@ -354,13 +358,13 @@ const Dashboard = () => {
 
           {/* User View Modal */}
           {isModalOpen && selectedUser && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg p-6 shadow-lg w-96">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2">
+              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-lg w-full max-w-xs sm:max-w-md">
                 <div className="flex flex-col items-center">
                   <img
                     src="/src/assets/avatar.png"
                     alt="Profile"
-                    className="w-24 h-24 rounded-full mb-4"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4"
                   />
                   <h2 className="text-xl font-bold">{selectedUser.name}</h2>
                   <p className="text-gray-500">{selectedUser.email}</p>
@@ -380,13 +384,13 @@ const Dashboard = () => {
 
           {/* Profile Modal with Edit */}
           {isProfileModalOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg p-6 shadow-lg w-96">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2">
+              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-lg w-full max-w-xs sm:max-w-md">
                 <div className="flex flex-col items-center">
                   <img
                     src="/src/assets/avatar.png"
                     alt="Profile"
-                    className="w-24 h-24 rounded-full mb-4"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4"
                   />
 
                   {isEditing ? (

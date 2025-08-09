@@ -63,26 +63,26 @@ const Charts = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
       <Sidebar
         isOpen={sidebarOpen}
         toggleSidebar={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-h-screen">
-        <header className="flex items-center bg-white shadow p-4">
+      <div className="flex-1 flex flex-col min-h-screen w-full">
+        <header className="flex items-center bg-white shadow p-4 w-full">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4"
+            className="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md mr-4 md:hidden"
             aria-label="Toggle Sidebar"
           >
             <FiMenu size={24} />
           </button>
-          <h2 className="text-2xl font-bold">Charts</h2>
+          <h2 className="text-lg sm:text-2xl font-bold">Charts</h2>
         </header>
-        <main className="flex-1 p-6 overflow-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <main className="flex-1 p-2 sm:p-4 md:p-6 overflow-auto w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 sm:mb-8">
             {/* Bar Chart */}
-            <div className="bg-white rounded-xl p-4 shadow col-span-1 lg:col-span-2">
+            <div className="bg-white rounded-xl p-4 shadow col-span-1 md:col-span-2 lg:col-span-2">
               <h3 className="font-semibold mb-4">Hours Spent</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={hoursData}>
@@ -94,7 +94,7 @@ const Charts = () => {
               </ResponsiveContainer>
             </div>
             {/* Pie Chart with rounded corners and custom tooltip */}
-            <div className="bg-white rounded-xl p-4 shadow">
+            <div className="bg-white rounded-xl p-4 shadow mt-4 md:mt-0">
               <h3 className="font-semibold mb-4">Task Status</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
