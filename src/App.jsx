@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const App = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Check login status on page load
+  useEffect(() => {
+    const status = localStorage.getItem("loggedIn");
+    if (status === "true") {
+      setLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Dummy credentials
+    if (email === "test@example.com" && password === "123456") {
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("role", "admin");
+      setLoggedIn(true);
+      setShowLogin(false);
+      window.location.href = "/dashboard";
+    } else {
+      alert("Invalid email or password!");
+    }
+  };
+
+  const handleLoginAsUser = () => {
+    setEmail("user@example.com");
+    setPassword("userpass");
+    // Simulate login as user
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("role", "user");
+    setLoggedIn(true);
+    setShowLogin(false);
+    window.location.href = "/dashboard";
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedIn");
+    setLoggedIn(false);
+  };
   return (
     <div className="font-sans text-paragraph flex flex-col">
       {/* Navbar */}
@@ -28,10 +70,81 @@ const App = () => {
           >
             Contact
           </a>
+          {/* Login / Logout Button */}
+          {!loggedIn ? (
+            <button
+              onClick={() => setShowLogin(true)}
+              className="bg-primaryLight text-primary px-6 py-2 rounded-sm font-semibold"
+            >
+              Login
+            </button>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="border border-primary text-title px-6 py-2 rounded-sm font-semibold"
+            >
+              Logout
+            </button>
+          )}
         </nav>
       </header>
 
       {/* Hero */}
+      {/* Login Modal */}
+      {showLogin && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold mb-4">Login</h2>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="block mb-1">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border px-3 py-2 rounded"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-1">Password</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border px-3 py-2 rounded"
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-2 mt-4">
+                <div className="flex gap-2">
+                  <button
+                    type="submit"
+                    className="bg-primary text-white px-4 py-2 rounded"
+                  >
+                    Login as Admin
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowLogin(false)}
+                    className="border border-primary px-4 py-2 rounded"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLoginAsUser}
+                  className="bg-primaryLight text-primary px-4 py-2 rounded font-semibold mt-2"
+                >
+                  Login as User
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <section className="grid md:grid-cols-5 items-start gap-32 px-20 py-9 ">
         <div className="col-span-2">
           <h2 className="text-h1 mb-4 text-title leading-snug text-shadow-lg">
@@ -150,7 +263,8 @@ const App = () => {
           <div>
             <h3 className="text-h2 mb-4 text-center text-title">Latest News</h3>
             <p className="text-textSecondary mb-6 text-center">
-              Stay updated with our latest news and insights.
+              Insights, thoughts, industry trends, marketing tips, eDesign news,
+              nerdy stuff, it's all here.{" "}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -158,14 +272,14 @@ const App = () => {
               {
                 date: "November 10, 2021",
                 title: "LaserNetUs Website Launch",
-                desc: "LaserNetUs has a new brand identity and website designed by eDesign Interactive...",
+                desc: "LaserNetUs has a new brand identity and website designed by eDesign Interactive. The homepage is dynamic and eye-catching. The website aims to highlight the innovative nature of high-intensity laser technology",
                 image: "/src/assets/blog/tshirt.png",
               },
               {
                 date: "February 21, 2021",
                 title:
                   "How we helped an Orthopedic Practice Increase their traffic",
-                desc: "We are honored and excited to be working with The Orthopedic Institute of New Jersey...",
+                desc: "We are honored and excited to be working with The Orthopedic Institute of New Jersey, the largest practice in northwest New Jersey.",
                 image: "/src/assets/blog/website.png",
               },
               {
